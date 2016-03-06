@@ -1,0 +1,24 @@
+{
+  "name": "stock",
+  "version": "1.0.0",
+  "description": "Gestion de existencias",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htmlelos/stock.git"
+  },
+  "author": "Sergio Lucero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/htmlelos/stock/issues"
+  },
+  "homepage": "https://github.com/htmlelos/stock#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-session": "^1.13.0"
+  }
+}
