@@ -1,0 +1,16 @@
+extends ./layout
+
+block contenido
+  form(action="/signin" method="POST")
+    legend= titulo
+    fieldset
+      label(for="email") Correo electronico
+      input(id="email" type="text" name="email" placeholder="Ingrese su correo electronico")
+    fieldset
+      label(for="password") Contraseña
+      input(id="password" type="password" name="password" placeholder="Ingrese la contraseña")
+    fieldset
+      label(for="confirmar") Confirmar Contraseña
+      input(id="confirmar" type="password" name="confirmar" placeholder="Confirme la contraseña")
+    fieldset
+      input(id="registrar" type="submit" value="Registrar")

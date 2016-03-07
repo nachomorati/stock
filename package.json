@@ -19,6 +19,7 @@
   "homepage": "https://github.com/htmlelos/stock#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "express-session": "^1.13.0"
+    "express-session": "^1.13.0",
+    "jade": "^1.11.0"
   }
 }
