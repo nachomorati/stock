@@ -86,7 +86,7 @@ html
   body
     block contenido
 ```
-luego definimos es archivo indice que se renderizara al iniciar la aplicacion. crear el archivo `index.jade`en la carpeta views.
+luego definimos es archivo indice que se renderizara al iniciar la aplicacion. crear el archivo `index.jade` en la carpeta views.
 ```
 extends ./layout
 
@@ -142,4 +142,90 @@ block contenido
       input(id="password" type="password" name="password" placeholder="Ingrese la contraseña")
     fieldset
       input(id="autenticar" type="submit" value="Autenticar")
+```
+###Sirviendo archivos estaticos
+Utilizaremos un middleware interno para indicar que utilizaremos el directorio `/public` para proveer los archivos estaticos del proyecto
+```
+app.use(express.static('public'));
+```
+###Dando formato a los formularios
+creamos la carpeta `/stylesheet` en la carpeta `/public`, dentro de la nueva carpeta definimos el archivo `style.css` con el siguiente contenido.
+```css
+a {
+  display: block;
+}
+
+fieldset {
+    border: 0;
+}
+
+label {
+  width: 100%;
+}
+
+input {
+  width: 100%;
+}
+
+```
+a continuacion, modificamos el archivo `layout.jade`, en la carpeta `/views` para agregar la pagina de estilos.
+```
+doctype html
+html
+  head
+    title= titulo
+    link(rel="stylesheet" href="./stylesheet/style.css")
+  body
+    block contenido
+```
+###Registrando los usuarios
+Ahora tendremos que almacenar el usuario registrado en algun tipo de persistencia, para ello utilizaremos Mongodb y su driver para node mongoose
+primero instalaremos mongose en el proyecto
+```
+npm install --save mongoose
+```
+Para conectar la base de datos agregamos la siguiente linea al archivo `server.js`
+```
+var mongoose = require('mongoose');
+```
+la conexion se realiza con la siguiente linea
+```
+mongoose.connect('mongodb://localhost/servicios');
+
+```
+el archivo queda de la siguiente manera
+```
+var express = require('express');
+var index = require('./routes/index');
+var mongoose = require('mongoose');
+
+var app = express();
+
+mongoose.connect('mongodb://localhost/servicios');
+
+app.use(express.static('public'));
+app.set('view engine', 'jade');
+
+app.use('/', index);
+
+app.listen(3000, function () {
+  'use strict';
+  console.log('Servidor iniciado en localhost:3000');
+});
+
+```
+###Definiendo el modelo de usuario
+Creamos la carpeta `/models` aqui crearemos un archivo `user.js` que define el Esquema necesario para almacenar un usuario en MongoDB
+```
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+
+var User = new Schema({
+  id: ObjectId,
+  email: {type: String, unique: true},
+  password: {type: String, unique: true}
+});
+
+module.exports = mongoose.model('User', User);
 ```

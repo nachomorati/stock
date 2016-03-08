@@ -3,6 +3,7 @@
 // --------------- Dependencias
 var express = require('express');
 var index = require('./routes/index');
+var mongoose = require('mongoose');
 //var session = require('express-session');
 //var secret = require('./security.cfg');
 // Aplicacion
@@ -13,7 +14,7 @@ var app = express();
   resave: false,
   saveUninitialized: false
 }));*/
-
+mongoose.connect('mongodb://localhost/servicios');
 app.use(express.static('public'));
 app.set('view engine', 'jade');
 
